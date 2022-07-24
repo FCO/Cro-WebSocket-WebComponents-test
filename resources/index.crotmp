@@ -1,0 +1,12 @@
+<:use 'resources/prepare-components.crotmp'>
+<html>
+  <body>
+    <&prepare>
+    Todos:
+    <div id=todo>
+      <:part todos-app($todos)>
+        <&HTML($todos.render)>
+      </:>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+---
+"cro": 1
+"endpoints": 
+  - 
+    "host-env": "TODO_HOST"
+    "id": "http"
+    "name": "HTTP"
+    "port-env": "TODO_PORT"
+    "protocol": "http"
+"entrypoint": "service.p6"
+"env":  []
+"id": "todo"
+"links":  []
+"name": "todo"
+...

@@ -1,0 +1,32 @@
+{
+  "raku": null,
+  "authors": [
+    ""
+  ],
+  "name": "todo",
+  "source-url": "Write me!",
+  "depends": [
+    "Cro::HTTP",
+    "Cro::WebSocket"
+  ],
+  "tags": [
+    ""
+  ],
+  "resources": [
+  ],
+  "build-depends": [
+  ],
+  "auth": "Write me!",
+  "support": {
+    "source": "Write me!"
+  },
+  "provides": {
+    "Routes": "lib/Routes.pm6"
+  },
+  "license": "Write me!",
+  "meta-version": "0",
+  "description": "Write me!",
+  "test-depends": [
+  ],
+  "version": "0.0.1"
+}
