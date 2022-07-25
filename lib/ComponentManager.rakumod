@@ -19,13 +19,18 @@ method find(Str $id) {
   %!components{ $id }
 }
 
-sub add-component(Str $name, $component) is export {
-  template-part $name, { \($component) }
+sub add-component(Str $name, |c) is export {
+  template-part $name, { c }
 }
 
 sub component-comm(&block) is export {
   my Supplier $supplier .= new;
   my ComponentManager $manager .= instance;
+  $PROCESS::COMPONENT-LOCK.protect: {
+    $PROCESS::SUPPLIER = $supplier;
+    template-part "prepare-components", { \() }
+    block
+  }
   get -> "cmd" {
     web-socket :json, -> $incoming, $close {
       supply {
@@ -41,11 +46,5 @@ sub component-comm(&block) is export {
         }
       }
     }
-  }
-  # my Supplier $*SUPPLIER := $supplier;
-  $PROCESS::COMPONENT-LOCK.protect: {
-    $PROCESS::SUPPLIER = $supplier;
-    template-part "prepare-components", { \() }
-    block
   }
 }

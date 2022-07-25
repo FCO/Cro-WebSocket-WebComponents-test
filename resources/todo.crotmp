@@ -1,2 +1,3 @@
 <input type='checkbox'<?.done> checked='checked'</?> onclick='<&HTML-AND-JAVASCRIPT(.toggle)>'>
 <.descr>
+<a onclick='<&HTML-AND-JAVASCRIPT(.delete)>' href="#">-</a>

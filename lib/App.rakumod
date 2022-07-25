@@ -1,10 +1,10 @@
 use Component;
-use Todo;
+use TodoList;
 unit class App does Component;
 
-has Todo() @.todos;
+has TodoList $.todo-list .= new;
 
-method add(Str $str) is template-usable['this.parentNode.querySelector(".inputDescription").value', ] {
+method add(Str $descr) is template-usable['this.parentNode.querySelector(".inputDescription").value', ] {
   LEAVE $.redraw;
-  @!todos.push: $str
+  $.todo-list.add: $descr
 }

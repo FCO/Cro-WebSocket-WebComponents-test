@@ -4,8 +4,8 @@
     <&prepare>
     Todos:
     <div id=todo>
-      <:part todos-app($todos)>
-        <&HTML($todos.render)>
+      <:part todos-app($todos, $todo-list)>
+        <&HTML($todos.new(:$todo-list).render)>
       </:>
     </div>
   </body>

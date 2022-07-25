@@ -10,8 +10,6 @@ has IO()  $.template = "resources/{ self.^name.lc }.crotmp";
 has Str() %!ids;
 has %!suppliers is SetHash;
 
-method FALLBACK(Str $name where .starts-with: "id-for-" ) { %!ids{ $name } //= UUID.new }
-
 method Str { $.render }
 method TWEAK(|) { ComponentManager.instance.add: self }
 
@@ -28,7 +26,7 @@ method render {
 method redraw {
   for %!suppliers.keys {
     .emit: %(
-      :$.id,
+      :$!id,
       :html($.render)
     )
   }

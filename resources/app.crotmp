@@ -1,6 +1,6 @@
 <div class=todos>
-  <@todos>
-    <&HTML(.render)>
-  </@>
-  <input class="inputDescription" type="text"><button onclick='<&HTML-AND-JAVASCRIPT(.add)>'>Add</button>
+  <&HTML(.todo-list.render)>
+  <form onsubmit='<&HTML-AND-JAVASCRIPT(.add)>; return false'>
+    <input class="inputDescription" type="text"><input type="submit" value='Add'>
+  </form>
 </div>
