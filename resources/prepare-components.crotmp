@@ -1,6 +1,6 @@
 <:sub prepare>
   <script>
-    window.ws = new WebSocket(`wss://${location.host}/cmd`);
+    window.ws = new WebSocket(`ws://${location.host}/cmd`);
     window.ws.addEventListener("message", function(event) {
       let data = JSON.parse(event.data);
       console.log(data);
