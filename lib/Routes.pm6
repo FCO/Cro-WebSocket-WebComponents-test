@@ -5,13 +5,12 @@ use App;
 
 sub routes() is export {
     route {
-        component-comm;
+        component-comm {
+            add-component 'todos-app', App.new(:todos<bla ble bli>);
 
-        add-component 'todos-app', App.new(:todos<bla ble bli>);
-
-        get -> {
-            template 'resources/index.crotmp', {}
+            get -> {
+                template 'resources/index.crotmp', {}
+            }
         }
-
     }
 }

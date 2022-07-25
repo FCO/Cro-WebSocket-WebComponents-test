@@ -8,6 +8,7 @@ has Str() $.id = UUID.new;
 has IO()  $.template = "resources/{ self.^name.lc }.crotmp";
 
 has Str() %!ids;
+has %!suppliers is SetHash;
 
 method FALLBACK(Str $name where .starts-with: "id-for-" ) { %!ids{ $name } //= UUID.new }
 
@@ -16,6 +17,7 @@ method TWEAK(|) { ComponentManager.instance.add: self }
 
 method render {
   my $*COMPONENT-RENDERING = True;
+  %!suppliers{ $*SUPPLIER } = True;
   qq:to/EOT/;
   <div id="component-{ $!id }">
     { render-template $.template, self }
@@ -24,10 +26,12 @@ method render {
 }
 
 method redraw {
-  emit %(
-    :$.id,
-    :html($.render)
-  )
+  for %!suppliers.keys {
+    .emit: %(
+      :$.id,
+      :html($.render)
+    )
+  }
 }
 
 multi trait_mod:<is>(Method $m, Bool :$template-usable where { .so }) is export {

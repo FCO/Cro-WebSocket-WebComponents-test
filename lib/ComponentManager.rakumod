@@ -4,7 +4,10 @@ use Cro::WebApp::Template;
 unit class ComponentManager;
 
 method new { !!! }
-method instance { $ //= self.bless }
+method instance {
+  $PROCESS::COMPONENT-LOCK //= Lock.new;
+  $ //= self.bless
+}
 
 has %.components;
 
@@ -20,19 +23,29 @@ sub add-component(Str $name, $component) is export {
   template-part $name, { \($component) }
 }
 
-sub component-comm is export {
+sub component-comm(&block) is export {
+  my Supplier $supplier .= new;
   my ComponentManager $manager .= instance;
-  template-part "prepare-components", { \() }
   get -> "cmd" {
-      web-socket :json, -> $incoming, $close {
-          supply {
-               whenever $incoming -> $message {
-                  whenever $message.body -> (:$id, :$method, :@positionals) {
-                      my $component = $manager.find: $id;
-                      $component."$method"(|@positionals)
-                  }
-               }
+    web-socket :json, -> $incoming, $close {
+      supply {
+        whenever $supplier -> |c {
+          emit |c
+        }
+        whenever $incoming -> $message {
+          whenever $message.body -> (:$id, :$method, :@positionals) {
+            my $component = $manager.find: $id;
+            my Supplier $*SUPPLIER := $supplier;
+            $component."$method"(|@positionals)
           }
+        }
       }
+    }
+  }
+  # my Supplier $*SUPPLIER := $supplier;
+  $PROCESS::COMPONENT-LOCK.protect: {
+    $PROCESS::SUPPLIER = $supplier;
+    template-part "prepare-components", { \() }
+    block
   }
 }

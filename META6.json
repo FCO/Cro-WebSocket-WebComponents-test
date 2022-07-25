@@ -7,7 +7,9 @@
   "source-url": "Write me!",
   "depends": [
     "Cro::HTTP",
-    "Cro::WebSocket"
+    "Cro::WebSocket",
+    "Cro::WebApp::Template",
+    "UUID"
   ],
   "tags": [
     ""
