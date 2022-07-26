@@ -19,6 +19,13 @@ method find(Str $id) {
   %!components{ $id }
 }
 
+method clean-components-from($supplier) {
+  for %!components.kv -> Str $id, $component where { .^can: "remove-supplier" } {
+    my $empty = $component.remove-supplier: $supplier;
+    %!components{ $id }:delete if $empty
+  }
+}
+
 sub add-component(Str $name, |c) is export {
   template-part $name, { c }
 }
@@ -34,6 +41,9 @@ sub component-comm(&block) is export {
   get -> "cmd" {
     web-socket :json, -> $incoming, $close {
       supply {
+        whenever $close {
+          $manager.clean-components-from: $supplier;
+        }
         whenever $supplier -> |c {
           emit |c
         }

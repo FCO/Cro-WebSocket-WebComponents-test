@@ -4,7 +4,7 @@ use Cro::WebApp::Template;
 use ComponentManager;
 unit role Component;
 
-has Str() $.id = UUID.new;
+has Str() $.id       = UUID.new;
 has IO()  $.template = "resources/{ self.^name.lc }.crotmp";
 
 has Str() %!ids;
@@ -15,12 +15,17 @@ method TWEAK(|) { ComponentManager.instance.add: self }
 
 method render {
   my $*COMPONENT-RENDERING = True;
-  %!suppliers{ $*SUPPLIER } = True;
+  %!suppliers{ $*SUPPLIER<> } = True;
   qq:to/EOT/;
   <div id="component-{ $!id }">
     { render-template $.template, self }
   </div>
   EOT
+}
+
+method remove-supplier($supplier) {
+  %!suppliers{ $supplier<> } = False;
+  !%!suppliers
 }
 
 method redraw {
