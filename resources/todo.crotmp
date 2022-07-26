@@ -1,3 +1,9 @@
-<input type='checkbox'<?.done> checked='checked'</?> onclick='<&HTML-AND-JAVASCRIPT(.toggle)>'>
-<.descr>
-<a onclick='<&HTML-AND-JAVASCRIPT(.delete)>' href="#">-</a>
+<:use Cro::WebApp::Template::Bootstrap>
+<|bs-col>
+  <dev onclick='<&HTML-AND-JAVASCRIPT(.toggle)>'>
+    <?.done><s><font color="grey"></?>
+      <.descr>
+    <?.done></font></s></?>
+    <a onclick='<&HTML-AND-JAVASCRIPT(.delete)>' href="#">-</a>
+  </dev>
+</|>

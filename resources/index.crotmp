@@ -1,5 +1,11 @@
+<:use Cro::WebApp::Template::Bootstrap>
 <:use 'resources/prepare-components.crotmp'>
-<html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <&bs-head-meta>
+    <&bs-cdn-css>
+  </head>
   <body>
     <&prepare>
     Todos:

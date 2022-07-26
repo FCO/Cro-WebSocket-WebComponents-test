@@ -1,3 +1,4 @@
+<:use Cro::WebApp::Template::Bootstrap>
 <@todos>
   <&HTML(.render)>
 </@>

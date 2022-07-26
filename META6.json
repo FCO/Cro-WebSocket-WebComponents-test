@@ -9,6 +9,7 @@
     "Cro::HTTP",
     "Cro::WebSocket",
     "Cro::WebApp::Template",
+    "https://github.com/croservices/cro-webapp-template-bootstrap.git",
     "UUID"
   ],
   "tags": [
